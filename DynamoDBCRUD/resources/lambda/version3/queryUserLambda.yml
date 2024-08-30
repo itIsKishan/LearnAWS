@@ -1,0 +1,11 @@
+name: queryUserVersion3
+handler: DDBJSVersion3/queryUser.handler
+description: Query User using SDK Version 3 method
+timeout: 30
+memorySize: 512
+role: CRUDRole
+events:
+  - http:
+      path: queryUserVersion3
+      method: get
+      cors: true

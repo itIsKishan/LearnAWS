@@ -1,0 +1,11 @@
+name: deleteUserVersion2
+handler: DDBJSVersion2/deleteUser.handler
+description: Delete User using SDK Version 2 method
+timeout: 30
+memorySize: 512
+role: CRUDRole
+events:
+  - http:
+      path: deleteUserVersion2
+      method: delete
+      cors: true

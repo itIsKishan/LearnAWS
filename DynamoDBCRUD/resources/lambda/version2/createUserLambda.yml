@@ -1,0 +1,11 @@
+name: createUserVersion2
+handler: DDBJSVersion2/createUser.handler
+description: Create User using SDK Version 2 method
+timeout: 30
+memorySize: 512
+role: CRUDRole
+events:
+  - http:
+      path: createUserVersion2
+      method: post
+      cors: true

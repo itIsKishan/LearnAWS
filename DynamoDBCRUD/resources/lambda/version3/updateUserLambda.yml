@@ -1,0 +1,11 @@
+name: updateUserVersion3
+handler: DDBJSVersion3/updateUser.handler
+description: Update User using SDK Version 3 method
+timeout: 30
+memorySize: 512
+role: CRUDRole
+events:
+  - http:
+      path: updateUserVersion3
+      method: put
+      cors: true

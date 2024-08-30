@@ -1,0 +1,62 @@
+service: dynamoDB-all-version-crud
+
+provider:
+  name: aws
+  architecture: arm64
+  runtime: nodejs18.x
+  region: ${opt:region, "us-east-1"}
+
+functions:
+  #CRUD Lambda functions using SDK Version 3 
+  createUserVersion3: ${file(./resources/lambda/version3/createUserLambda.yml)}
+  getUserVersion3: ${file(./resources/lambda/version3/getUserLambda.yml)}
+  updateUserVersion3: ${file(./resources/lambda/version3/updateUserLambda.yml)}
+  deleteUserVersion3: ${file(./resources/lambda/version3/deleteUserLambda.yml)}
+  scanUserVersion3: ${file(./resources/lambda/version3/scanUserLambda.yml)}
+  queryUserVersion3: ${file(./resources/lambda/version/queryUserLambda.yml)}
+
+  #CRUD Lambda functions using SDK Version 2
+  createUserVersion2: ${file(./resources/lambda/version2/createUserLambda.yml)}
+  getUserVersion2: ${file(./resources/lambda/version2/getUserLambda.yml)}
+  updateUserVersion2: ${file(./resources/lambda/version2/updateUserLambda.yml)}
+  deleteUserVersion2: ${file(./resources/lambda/version2/deleteUserLambda.yml)}
+  scanUserVersion2: ${file(./resources/lambda/version2/scanUserLambda.yml)}
+  queryUserVersion2: ${file(./resources/lambda/version2/queryUserLambda.yml)}
+
+resources:
+  Resources:
+    UserTable: ${file(./resources/dynamo/userTable.yml)}
+    CRUDRole:
+      Type: AWS::IAM::Role
+      Properties:
+        RoleName: CRUDRole
+        AssumeRolePolicyDocument:
+          Version: '2012-10-17'
+          Statement:
+            - Effect: Allow
+              Principal:
+                Service: lambda.amazonaws.com
+              Action: sts:AssumeRole
+        Policies:
+          - PolicyName: CRUDPolicy
+            PolicyDocument:
+              Version: '2012-10-17'
+              Statement:
+                - Effect: Allow
+                  Action:
+                    - dynamodb:PutItem
+                    - dynamodb:GetItem
+                    - dynamodb:UpdateItem
+                    - dynamodb:DeleteItem
+                    - dynamodb:Scan
+                    - dynamodb:Query
+                  Resource: "*"
+                - Effect: Allow
+                  Action:
+                    - logs:CreateLogGroup
+                    - logs:CreateLogStream
+                    - logs:PutLogEvents
+                  Resource: "*"
+
+              
+        

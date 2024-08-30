@@ -1,0 +1,11 @@
+name: scanUserVersion2
+handler: DDBJSVersion2/scanUser.handler
+description: Scan User using SDK Version 2 method
+timeout: 30
+memorySize: 512
+role: CRUDRole
+events:
+  - http:
+      path: scanUserVersion2
+      method: get
+      cors: true

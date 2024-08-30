@@ -1,0 +1,11 @@
+name: queryUserVersion2
+handler: DDBJSVersion2/queryUser.handler
+description: Query User using SDK Version 2 method
+timeout: 30
+memorySize: 512
+role: CRUDRole
+events:
+  - http:
+      path: queryUserVersion2
+      method: get
+      cors: true

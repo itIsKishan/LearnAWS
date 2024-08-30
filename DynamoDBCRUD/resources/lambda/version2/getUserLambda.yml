@@ -1,0 +1,11 @@
+name: getUserVersion2
+handler: DDBJSVersion2/getUser.handler
+description: Get User using SDK Version 2 method
+timeout: 30
+memorySize: 512
+role: CRUDRole
+events:
+  - http:
+      path: getUserVersion2
+      method: get
+      cors: true
