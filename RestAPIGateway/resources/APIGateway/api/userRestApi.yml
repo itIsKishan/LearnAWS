@@ -1,0 +1,4 @@
+Type: AWS::ApiGateway::RestApi
+Properties:
+  Name: 'userRestAPI' #name of your api gateway
+  Description: 'CRUD API for User' #description of your api gateway

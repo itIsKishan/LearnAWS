@@ -1,0 +1,6 @@
+name: deleteUser
+handler: userLambdas/deleteUser.handler
+description: Delete User using SDK Version 3 method
+timeout: 30
+memorySize: 512
+role: userCRUDRole

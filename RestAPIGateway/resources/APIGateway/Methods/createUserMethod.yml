@@ -1,0 +1,15 @@
+Type: 'AWS::ApiGateway::Method'
+Properties:
+  AuthorizationType: NONE #authorization type: for this NONE is used as we don't specify the auth for this method
+  HttpMethod: POST #http method 
+  ResourceId: #resource id that we have created
+    Ref: userRestApiRootResource
+  RestApiId: #specifying the rest api id
+    Ref: userRestApi
+  Integration: #integration: is where we set the target for our method, lambda as been choosed as target for this route
+    IntegrationHttpMethod: POST
+    Type: AWS_PROXY
+    Uri:
+      Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CreateUserLambdaFunction.Arn}/invocations
+  MethodResponses:
+    - StatusCode: 200

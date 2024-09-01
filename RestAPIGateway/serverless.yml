@@ -1,0 +1,34 @@
+service: restApiGateway
+
+provider:
+  name: aws
+  architecture: arm64
+  runtime: nodejs18.x
+  region: ${opt:region, "us-east-1"}
+
+functions:
+  #CRUD Lambda functions  
+  createUser: ${file(./resources/lambda/createUserLambda.yml)}
+  getUser: ${file(./resources/lambda/getUserLambda.yml)}
+  updateUser: ${file(./resources/lambda/updateUserLambda.yml)}
+  deleteUser: ${file(./resources/lambda/deleteUserLambda.yml)}
+
+resources:
+  Resources:
+    #User Table to store user data
+    userTable: ${file(./resources/dynamoDB/userTable.yml)}
+    #Role to provide CRUD access to Lambda functions
+    userCRUDRole: ${file(./resources/role/role.yml)}
+
+    #API Gateway: create a rest api, and a resource
+    userRestApi: ${file(./resources/apiGateway/api/userRestApi.yml)} 
+    userRestApiRootResource: ${file(./resources/apiGateway/resource/userRestApiRootResource.yml)}
+
+    #API Gateway: creating Method under above created resource and invoke the particular lambda for the particualr method
+    createUserMethod: ${file(./resources/apiGateway/methods/createUserMethod.yml)}
+    getUserMethod: ${file(./resources/apiGateway/methods/getUserMethod.yml)}
+    updateUserMethod: ${file(./resources/apiGateway/methods/updateUserMethod.yml)}
+    deleteUserMethod: ${file(./resources/apiGateway/methods/deleteUserMethod.yml)}
+
+    #API Gateway: deploy the stage(dev/prod) for the created rest apigateway
+    userRestApiDeployment: ${file(./resources/apiGateway/deployment/userRestApiDeployment.yml)}

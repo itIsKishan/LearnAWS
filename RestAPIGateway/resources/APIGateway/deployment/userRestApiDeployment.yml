@@ -1,0 +1,10 @@
+Type: AWS::ApiGateway::Deployment
+DependsOn: 
+  - createUserMethod
+  - getUserMethod
+  - updateUserMethod
+  - deleteUserMethod
+Properties:
+  RestApiId: # referr your api gateway
+    Ref: userRestApi
+  StageName: ${opt:stage, 'dev'} #stage name you want to deploy your api gateway

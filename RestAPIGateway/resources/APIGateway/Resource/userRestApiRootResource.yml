@@ -1,0 +1,9 @@
+Type: AWS::ApiGateway::Resource
+Properties:
+  ParentId: # referring the root resource with api gateway
+    Fn::GetAtt:
+      - userRestApi
+      - RootResourceId
+  PathPart: user #path: path used in your api gateway
+  RestApiId: #referring the api gateway
+    Ref: userRestApi

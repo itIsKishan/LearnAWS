@@ -1,0 +1,6 @@
+name: updateUser
+handler: userLambdas/updateUser.handler
+description: Update User using SDK Version 3 method
+timeout: 30
+memorySize: 512
+role: userCRUDRole

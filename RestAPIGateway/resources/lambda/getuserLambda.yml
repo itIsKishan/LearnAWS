@@ -1,0 +1,6 @@
+name: getUser
+handler: userLambdas/getUser.handler
+description: Get User using SDK Version 3 method
+timeout: 30
+memorySize: 512
+role: userCRUDRole
