@@ -13,6 +13,7 @@ This repository aims to provide a walkthrough on creating a REST API using resou
 
 ## Folder Structure
 To maintain clarity and avoid overloading the `serverless.yml` file, I’ve organized the resources into separate folders. Below is the folder structure of the project:
+```
 /
 ├── resources/
 │   ├── apiGateway/
@@ -42,6 +43,7 @@ To maintain clarity and avoid overloading the `serverless.yml` file, I’ve orga
 ├── package-lock.json
 ├── README.md
 └── serverless.yml
+```
 
 Each folder under `resources` is dedicated to a specific component of the architecture:
 
