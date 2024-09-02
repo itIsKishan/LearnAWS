@@ -17,7 +17,7 @@ module.exports.handler = async(event, context) => {
             * Key: The primary key of the item you want to get
          */
         const params = new GetCommand({
-            TableName: 'UserTable',
+            TableName: 'userCache',
             Key: {
                 userId
             }

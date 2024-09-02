@@ -21,7 +21,7 @@ module.exports.handler = async(event, context) => {
             * ReturnValues: The return values of the operation. For example, NONE, ALL_OLD, UPDATED_OLD, ALL_NEW, UPDATED_NEW
          */
         const params = new UpdateCommand({
-            TableName: 'UserTable',
+            TableName: 'userCache',
             Key: {
                 userId
             },

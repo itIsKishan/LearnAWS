@@ -17,7 +17,7 @@ module.exports.handler = async(event, context) => {
             * Key: The primary key of the item you want to delete
          */
         const params = new DeleteCommand({
-            TableName: 'UserTable',
+            TableName: 'userCache',
             Key: {
                 userId
             }
