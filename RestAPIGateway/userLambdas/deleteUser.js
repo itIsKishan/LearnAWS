@@ -30,7 +30,7 @@ module.exports.handler = async(event, context) => {
                 'Access-Control-Allow-Methods': '*',
             },
             statusCode: 200,
-            body: JSON.stringify(response.metadata)
+            body: JSON.stringify(response)
         };
     } catch (error) {
         console.log('[ERROR] Error while deleting user: ', error)

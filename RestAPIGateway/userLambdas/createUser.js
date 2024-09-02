@@ -1,7 +1,7 @@
 // import the required libraries
 const { DynamoDBClient } = require("@aws-sdk/client-dynamodb");
 const { DynamoDBDocumentClient, PutCommand } = require("@aws-sdk/lib-dynamodb");
-const { uuid:v4 } = require('uuid');
+const { v4 } = require('uuid');
 // create a new DynamoDB client and a new DynamoDBDocumentClient so you can do CRUD operation on table
 const client = new DynamoDBClient({});
 const dbClient = DynamoDBDocumentClient.from(client);
@@ -44,7 +44,7 @@ module.exports.handler = async(event, context) => {
                 'Access-Control-Allow-Methods': '*',
             },
             statusCode: 200,
-            body: JSON.stringify(response.metadata)
+            body: JSON.stringify(response)
         };
     } catch (error) {
         console.log('[ERROR] Error while creating user: ', error)

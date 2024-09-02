@@ -1,0 +1,7 @@
+Type: AWS::Lambda::Permission
+DependsOn: #Depends on the api gateway creation so it attach permission to that api
+  - userRestApi
+Properties:
+  Action: lambda:InvokeFunction #Action to be performed
+  FunctionName: !Ref UpdateUserLambdaFunction #Lambda function to be invoked
+  Principal: apigateway.amazonaws.com #Principal who can invoke the function

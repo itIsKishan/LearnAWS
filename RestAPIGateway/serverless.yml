@@ -30,5 +30,11 @@ resources:
     updateUserMethod: ${file(./resources/apiGateway/methods/updateUserMethod.yml)}
     deleteUserMethod: ${file(./resources/apiGateway/methods/deleteUserMethod.yml)}
 
+    #API Gateway: provide permission to api to invoke lambda
+    createUserInvokePermission: ${file(./resources/apiGateway/permission/createUserInvokePermission.yml)}
+    getUserInvokePermission: ${file(./resources/apiGateway/permission/getUserInvokePermission.yml)}
+    updateUserInvokePermission: ${file(./resources/apiGateway/permission/updateUserInvokePermission.yml)}
+    deleteUserInvokePermission: ${file(./resources/apiGateway/permission/deleteUserInvokePermission.yml)}
+    
     #API Gateway: deploy the stage(dev/prod) for the created rest apigateway
     userRestApiDeployment: ${file(./resources/apiGateway/deployment/userRestApiDeployment.yml)}
