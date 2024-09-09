@@ -66,3 +66,4 @@ module.exports.handler = awslambda.streamifyResponse(async (event, responseStrea
         throw error;
     }
 });;
+
