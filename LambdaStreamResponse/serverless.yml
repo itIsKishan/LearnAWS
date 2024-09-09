@@ -1,0 +1,24 @@
+service: LambdaStreamResponse
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  architecture: arm64
+  runtime: nodejs18.x
+  region: ${opt:region, "us-east-1"}
+
+functions:
+  #Step1: lambda functions which perform stream response and buffer response
+  bufferLambdaResponse: ${file(./resources/lambda/lambdaCreation/bufferLambda.yml)}
+  streamLambdaResponse: ${file(./resources/lambda/lambdaCreation/streamLambda.yml)}
+
+resources:
+  Resources:
+    #Step2 DDB: streamUser Table to store user data from where we stream the data
+    streamUserTable: ${file(./resources/dynamoDB/streamUserTable.yml)}
+    #Step3 Role: Role which provides permission to lambda to scan the table
+    streamLambdaRole: ${file(./resources/role/role.yml)}
+
+    #Step 4 LambdaURL: create a lambda url and give permission that it can invoke the lambda for stream
+    streamLambdaURL: ${file(./resources/lambda/lambdaURL/streamLambdaUrl.yml)}
+    streamLambdaURLInvokePermission: ${file(./resources/lambda/lambdaURLPermission/streamLambdaURLInvokePermission.yml)}

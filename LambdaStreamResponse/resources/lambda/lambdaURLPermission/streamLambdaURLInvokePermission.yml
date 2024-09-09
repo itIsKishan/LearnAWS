@@ -1,0 +1,6 @@
+Type: AWS::Lambda::Permission 
+Properties:
+  FunctionUrlAuthType: NONE #authentication type for the function url
+  Action: lambda:InvokeFunctionUrl #action to be performed
+  FunctionName: !Ref StreamLambdaResponseLambdaFunction #function name to be invoked
+  Principal: '*'

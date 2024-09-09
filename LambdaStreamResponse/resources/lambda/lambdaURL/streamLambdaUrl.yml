@@ -1,0 +1,5 @@
+Type: AWS::Lambda::Url # type of the lambda url
+Properties:
+  AuthType: NONE #authentication type doe lambda url
+  InvokeMode: RESPONSE_STREAM #invoke mode of the lambda
+  TargetFunctionArn: !GetAtt StreamLambdaResponseLambdaFunction.Arn #target function arn

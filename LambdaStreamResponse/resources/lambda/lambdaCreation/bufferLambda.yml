@@ -1,0 +1,11 @@
+name: bufferResponseLambda #name of the lambda function
+handler: streamLambdas/bufferLambdaResponse.handler #handler file
+description: buffer the response from lambda function usuall for lambda response
+timeout: 30
+memorySize: 512
+role: streamLambdaRole #role of the lambda function
+events:
+  - http: #http event to trigger the lambda function
+      path: bufferResponseLambda
+      method: post
+      cors: true

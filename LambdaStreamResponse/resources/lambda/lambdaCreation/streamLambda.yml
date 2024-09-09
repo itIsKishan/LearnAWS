@@ -1,0 +1,6 @@
+name: streamResponseLambda #name of the lambda function
+handler: streamLambdas/streamLambdaResponse.handler #handler file
+description: stream the response from lambda function
+timeout: 30
+memorySize: 512
+role: streamLambdaRole #role of the lambda function

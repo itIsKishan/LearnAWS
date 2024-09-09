@@ -1,0 +1,10 @@
+Type: AWS::DynamoDB::Table
+Properties:
+  TableName: stream-user-table #table name
+  BillingMode: PAY_PER_REQUEST
+  AttributeDefinitions:
+    - AttributeName: userId 
+      AttributeType: S
+  KeySchema:
+    - AttributeName: userId #partition key
+      KeyType: HASH
