@@ -75,7 +75,7 @@ This folder contains the actual Lambda function code used for interacting with D
 ## Explanationn of the YAML's
 **Step1:** Creatinfg the Buffer & Stream Lambda.
 The first step involves creating the Lambda functions that will handle buffering and streaming of responses. This setup is crucial for the functionality described in our project.
-![step1Lambda](screenshots/Screenshot%202024-09-06%20at%2010.20.05%20PM.png)
+![step1Lambda](screenshots/Screenshot%202024-09-08%20at%2010.20.02%20PM.png)
 In the YAML configuration files located in the **resources/lambda/lambdaCreation** directory, you will find definitions for two Lambda functions: `bufferLambda.yml` and `streamLambda.yml.` Here’s a breakdown of what each file contains:
 1. **name:** Each file defines a Lambda function with a specific name:
 
@@ -106,7 +106,7 @@ Both files set the timeout to 30 seconds, which is suitable for processing and r
 
 **Step2:** Creating DynamoDB To store User Data
 The next step involves setting up a DynamoDB table to store user data. This table will be essential for managing and retrieving the 14MB of data required for stream responses.
-![Step2DDB](screenshots/Screenshot%202024-09-08%20at%2010.20.02%20PM.png)
+![Step2DDB](screenshots/Screenshot%202024-09-08%20at%2010.20.15%20PM.png)
 The YAML configuration file for this setup is located in the `resources/dynamoDB` directory and is named `streamUserTable.yml`. Here’s a detailed breakdown of the configuration:
 
 **1. Type: AWS::DynamoDB::Table**
@@ -132,7 +132,7 @@ Specifies that the resource being created is a DynamoDB table.
 
 **Step3:** Creating Role for lambda to perform scan operation on dynamoDB
 next step is to give required permission to the lambda so that it will be able to perfrom the scan operation on the dynaomdb table created in step2
-![step3Role](screenshots/Screenshot%202024-09-08%20at%2010.20.15%20PM.png)
+![step3Role](screenshots/Screenshot%202024-09-08%20at%2010.20.23%20PM.png)
 the yaml exists in resource/role with name role.yml
 where we give scan perfmission to the lambda
 
