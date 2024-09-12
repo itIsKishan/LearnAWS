@@ -1,6 +1,6 @@
 Type: AWS::Route53::RecordSet
 Properties:
-  HostedZoneId: Z072431834GHYR1CLW41W
+  HostedZoneId: hostedZoneId #paste the hosted zone id here
   Name: hosted-custom-domain-for-api-gateway.com
   Type: A
   AliasTarget:

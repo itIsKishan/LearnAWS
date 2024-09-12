@@ -4,4 +4,4 @@ Properties:
   ValidationMethod: DNS
   DomainValidationOptions: 
     - DomainName: hosted-custom-domain-for-api-gateway.com
-      HostedZoneId: Z072431834GHYR1CLW41W
+      HostedZoneId: hostedZoneId #paste the hosted zone id here
