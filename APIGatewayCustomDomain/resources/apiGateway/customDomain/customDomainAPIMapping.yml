@@ -1,0 +1,7 @@
+Type: 'AWS::ApiGateway::BasePathMapping'
+Properties:
+  DomainName:
+    Ref: todoRestApiCustomDomain
+  RestApiId:
+    Ref: todoRestApi
+  Stage: dev 

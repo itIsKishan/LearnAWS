@@ -1,0 +1,8 @@
+Type: 'AWS::ApiGateway::DomainName'
+Properties:
+  DomainName: hosted-custom-domain-for-api-gateway.com
+  RegionalCertificateArn: 
+    Ref: todoRestAPICertificate
+  EndpointConfiguration:
+    Types:
+      - REGIONAL

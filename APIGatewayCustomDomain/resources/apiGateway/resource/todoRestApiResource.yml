@@ -1,0 +1,9 @@
+Type: AWS::ApiGateway::Resource
+Properties:
+  ParentId:
+    Fn::GetAtt:
+      - todoRestApi
+      - RootResourceId
+  PathPart: todo
+  RestApiId:
+    Ref: todoRestApi

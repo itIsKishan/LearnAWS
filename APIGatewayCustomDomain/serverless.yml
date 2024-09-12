@@ -1,0 +1,41 @@
+service: APIGatewayCustomDomain
+
+provider:
+  name: aws
+  architecture: arm64
+  runtime: nodejs18.x
+  region: ${opt:region, "us-east-1"}
+
+functions:
+  #Step1: CreateTodo lambda function 
+  createTodo: ${file(./resources/lambda/createTodoLambda.yml)}
+
+resources:
+  Resources:
+    #Step2 DDB: todo Table to store todo data
+    todoTable: ${file(./resources/dynamoDB/todoTable.yml)}
+    #Step3 Role: Role to provide create access to Lambda functions
+    todoLambdaRole: ${file(./resources/role/role.yml)}
+
+    #Step4 API Gateway: api to expose Lambda functions
+    todoRestApi: ${file(./resources/apiGateway/api/todoRestApi.yml)} 
+
+    #Step5 API Gateway: Resource and Method creation, and invoke permission
+    todoRestApiRootResource: ${file(./resources/apiGateway/resource/todoRestApiResource.yml)}
+    createTodoRestApiMethod: ${file(./resources/apiGateway/methods/createTodoRestApiMethod.yml)}
+    createTodoApiInvokePermission: ${file(./resources/apiGateway/permission/createTodoApiInvokePermission.yml)}
+
+    #Step6 API Gateway: deployment for stage
+    todoRestApiDeployment: ${file(./resources/apiGateway/deploy/todoRestApiDeploy.yml)}
+
+    #Step7 ACM Certificate for Custom Domain
+    todoRestAPICertificate: ${file(./resources/acm/todoRestApiCertificate.yml)}
+
+    #Step8 API Gateway: Create Custom Domain for api gateway
+    todoRestApiCustomDomain: ${file(./resources/apiGateway/customDomain/customDomain.yml)}
+     
+    #Step9 API Gateway: creating a record set in hosted zone for custom domain
+    todoRestApiCustomDomainRecordSet: ${file(./resources/apiGateway/customDomain/customDomainRecordSet.yml)}
+
+    #Step10 API Gateway: API Mapping for custom domain so the request is navigated to your apis
+    todoRestApiCustomDomainApiMapping: ${file(./resources/apiGateway/customDomain/customDomainAPIMapping.yml)}

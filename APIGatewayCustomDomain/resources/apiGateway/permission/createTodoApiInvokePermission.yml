@@ -1,0 +1,7 @@
+Type: AWS::Lambda::Permission
+DependsOn:
+  - todoRestApi
+Properties:
+  Action: lambda:InvokeFunction
+  FunctionName: !Ref CreateTodoLambdaFunction
+  Principal: apigateway.amazonaws.com

@@ -1,0 +1,7 @@
+name: createTodoLambda
+handler: todoLambdas/createTodo.handler
+description: Create todo task using SDK Version 3 method
+timeout: 30
+memorySize: 512
+role: todoLambdaRole
+  

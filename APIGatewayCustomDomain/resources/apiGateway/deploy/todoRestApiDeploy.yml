@@ -1,0 +1,7 @@
+Type: AWS::ApiGateway::Deployment
+DependsOn: 
+  - createTodoRestApiMethod
+Properties:
+  RestApiId:
+    Ref: todoRestApi
+  StageName: ${opt:stage, 'dev'}

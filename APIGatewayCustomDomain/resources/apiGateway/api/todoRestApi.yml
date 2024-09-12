@@ -1,0 +1,4 @@
+Type: AWS::ApiGateway::RestApi
+Properties:
+  Name: 'todoAPI'
+  Description: 'CRUD API for todo'

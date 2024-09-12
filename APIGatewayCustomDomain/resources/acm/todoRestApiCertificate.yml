@@ -1,0 +1,7 @@
+Type: 'AWS::CertificateManager::Certificate'
+Properties: 
+  DomainName: hosted-custom-domain-for-api-gateway.com
+  ValidationMethod: DNS
+  DomainValidationOptions: 
+    - DomainName: hosted-custom-domain-for-api-gateway.com
+      HostedZoneId: Z072431834GHYR1CLW41W

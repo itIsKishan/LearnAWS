@@ -1,0 +1,8 @@
+Type: AWS::Route53::RecordSet
+Properties:
+  HostedZoneId: Z072431834GHYR1CLW41W
+  Name: hosted-custom-domain-for-api-gateway.com
+  Type: A
+  AliasTarget:
+    DNSName: !GetAtt todoRestApiCustomDomain.RegionalDomainName
+    HostedZoneId: !GetAtt todoRestApiCustomDomain.RegionalHostedZoneId

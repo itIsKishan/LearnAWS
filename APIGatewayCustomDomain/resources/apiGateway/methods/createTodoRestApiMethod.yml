@@ -1,0 +1,15 @@
+Type: AWS::ApiGateway::Method
+Properties:
+  AuthorizationType: NONE
+  HttpMethod: POST
+  ResourceId:
+    Ref: todoRestApiRootResource
+  RestApiId:
+    Ref: todoRestApi
+  Integration:
+    IntegrationHttpMethod: POST
+    Type: AWS_PROXY
+    Uri: 
+      Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CreateTodoLambdaFunction.Arn}/invocations
+  MethodResponses:
+    - StatusCode: 200
