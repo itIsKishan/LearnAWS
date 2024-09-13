@@ -103,6 +103,7 @@ Before proceeding, ensure you have a registered domain name. If you don't alread
 ## Explanation Of YAML
 
 **Steps 1, 2, 3: Create a Lambda Function, DynamoDB Table, and Role**
+
 In this guide, we’ll first set up a simple Lambda function that creates a todo item in a DynamoDB table. This Lambda will be invoked through the API Gateway in subsequent steps.
 
   **Step 1:** Create a Lambda Function We'll build a Lambda function responsible for creating todo entries in the todoTable. The configuration for this Lambda function can be found in `resources/lambda/createTodoLambda.yml`. This function will later be integrated with the API Gateway.
@@ -117,8 +118,10 @@ In this guide, we’ll first set up a simple Lambda function that creates a todo
   By following these steps, you’ll have the necessary setup to allow the Lambda function to interact with the DynamoDB table securely.
 
 **Steps 4, 5, 6: Create an API Gateway, Resource, Method & Deployment**
+
 Now that we have the Lambda function and DynamoDB table set up, the next step is to configure the API Gateway with the necessary resources and methods.
   **Step 4: Create a REST API Gateway**
+  
   We will define a REST API Gateway for the `todo` application. The configuration for this can be found in `resources/apiGateway/api/todoRestApi.yml`.
   ![step4API](screenshots/Screenshot%202024-09-13%20at%206.57.22%20PM.png)
   This file creates the API Gateway and sets its name to todoAPI.
@@ -129,6 +132,7 @@ Now that we have the Lambda function and DynamoDB table set up, the next step is
     Description: 'CRUD API for todo'
   ```
   **Step 5: Create API Gateway Resource**
+
   Next, we will add a resource to the API Gateway for our `todo` path, which is defined in `resources/apiGateway/resource/todoRestApiResource.yml`.
   ![step51Resource](screenshots/Screenshot%202024-09-13%20at%206.57.30%20PM.png)
   ```
@@ -145,6 +149,7 @@ Now that we have the Lambda function and DynamoDB table set up, the next step is
   This step creates a new resource path `/todo` and links it to the API Gateway created in previous step.
 
   **Step 5.1: Create API Gateway Method**
+
   The next step is to define a method (e.g., POST) for the `/todo` resource. This will be used to invoke the Lambda function and create a new todo item. The configuration for this can be found in `resources/apiGateway/methods/createTodoRestApiMethod.yml`.
   ![step52Method](screenshots/Screenshot%202024-09-13%20at%206.57.30%20PM.png)
   ```
@@ -167,6 +172,7 @@ Now that we have the Lambda function and DynamoDB table set up, the next step is
   Here, we create a POST method for the `/todo` resource, link it to the Lambda function, and set it to use the `AWS_PROXY` integration.
 
   **Step5.3: Provide Invoke Permission For the API Gateway**
+
   It is required to give necessary permission to the api gateway so that it will be able to invoke the lambda or any other target, the configuration is located in `resources/apiGateway/permission/createTodoApiInvokePermission.yml`
   ```
   Type: AWS::Lambda::Permission #allow api gateway to invoke the lambda function
@@ -179,6 +185,7 @@ Now that we have the Lambda function and DynamoDB table set up, the next step is
   ```
 
   **Step 6: Deploy the API Gateway**
+
   Once the API Gateway, resource, and method are configured, we need to deploy the API so that it becomes publicly available. The deployment configuration is located in `resources/apiGateway/deploy/todoRestApiDeploy.yml`.
   ![step6Deploy](screenshots/Screenshot%202024-09-13%20at%206.57.37%20PM.png)
   ```
@@ -195,6 +202,7 @@ Now that we have the Lambda function and DynamoDB table set up, the next step is
 For more understanding on the API gateway reffer this repo: [REST API Gateway](https://github.com/itIsKishan/LearnAWS/tree/main/RestAPIGateway)
 
 **Step7: Creating An ACM Certificate**
+
 Since we're using a custom domain for our API Gateway, it's important to enable SSL/TLS validation for secure communication. We'll achieve this by creating an ACM certificate, which will be attached to the custom domain in Route 53. The configuration for this ACM certificate is found in `resources/acm/todoRestApiCertificate.yml.`
 ![step7ACM](screenshots/Screenshot%202024-09-13%20at%206.57.45%20PM.png)
 ```
@@ -217,6 +225,7 @@ Properties:
 By following this setup, the ACM certificate will be validated and linked with the custom domain, ensuring secure access to your API Gateway.
 
 **Step8: Creating Custom Domain For API Gateway**
+
 After setting up the API Gateway and obtaining the ACM certificate, the next step is to configure a custom domain for the API Gateway. This allows your API to be accessed via a user-friendly, custom URL. The configuration for the custom domain is located in `resources/apiGateway/customDomain/customDomain.yml`
 
 ![step8CDAPI](screenshots/Screenshot%202024-09-13%20at%206.57.52%20PM.png)
@@ -241,6 +250,7 @@ Properties:
   This setup allows your API Gateway to have a secure, custom domain name, making it easier to use and more professional for public-facing applications.
 
 **Step9: Create A Record Set In Hosted Zone of the custom domain**
+
 After configuring the custom domain for the API Gateway, the next step is to add a record set in the Route 53 hosted zone. This will map the custom domain to the API Gateway. The configuration can be found in `resources/apiGateway/customDomain/customDomainRecordSet.yml`
 ![step9RecordSet](screenshots/Screenshot%202024-09-13%20at%206.57.59%20PM.png)
 ```
@@ -264,6 +274,7 @@ Properties:
   **4. AliasTarget:** This is where the custom domain from the API Gateway is attached, utilizing GetAtt to fetch the domain name and hosted zone ID from the API Gateway.
 
 **Step10: API Mapping For Custom Domain**
+
 The final step is to map the API Gateway to the custom domain we created in the previous step. This ensures that when the custom domain is accessed, it routes to the appropriate API Gateway stage. The configuration is located in `resources/apiGateway/customDomain/customDomainAPIMapping.yml`
 ![step10APIMapping](screenshots/Screenshot%202024-09-13%20at%206.58.09%20PM.png)
 ```
