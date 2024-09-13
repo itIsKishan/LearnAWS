@@ -6,11 +6,15 @@ Of course, you'd go for the cleaner, more meaningful URL, right? But AWS doesn't
 ## How To Build Custom Domain
 To set up a custom domain for your API Gateway, follow these steps:
 
-**1. Register a Custom Domain in Route 53:** After registering, ensure that a hosted zone is created—AWS will handle this for you.
-**2. Prepare and Deploy Your API Gateway:** Make sure your API Gateway is deployed to a specific stage.
-**3. Create an ACM Certificate:** Request an ACM certificate for your domain and validate it via Route 53 for secure connections.
-**4. Create a Custom Domain in API Gateway:** In the API Gateway console, create a custom domain using the same domain name registered in Route 53, and attach the ACM certificate.
-**5. Set Up API Mapping:** Map your deployed API to the custom domain, enabling it to be accessible via the new domain.
+  **1. Register a Custom Domain in Route 53:** After registering, ensure that a hosted zone is created—AWS will handle this for you. 
+
+  **2. Prepare and Deploy Your API Gateway:** Make sure your API Gateway is deployed to a specific stage.
+
+  **3. Create an ACM Certificate:** Request an ACM certificate for your domain and validate it via Route 53 for secure connections.
+
+  **4. Create a Custom Domain in API Gateway:** In the API Gateway console, create a custom domain using the same domain name registered in Route 53, and attach the ACM certificate.
+
+  **5. Set Up API Mapping:** Map your deployed API to the custom domain, enabling it to be accessible via the new domain.
 
 This guide ensures your API is properly secured and accessible with a user-friendly custom domain.
 
@@ -60,8 +64,11 @@ This folder contains YAML configurations for setting up and managing essential A
   **2.1 api/todoRestApi.yml:** Defines the configuration for creating the API Gateway with a custom name.
 
   **2.2 customDomain/:**
+
     **customDomain.yml:** Configures a custom domain name for the API Gateway.
+
     **customDomainAPIMapping.yml:** Maps the custom domain name to the API Gateway.
+    
     **customDomainRecordSet.yml:** Creates the corresponding Route 53 DNS records for the custom domain.
 
   **2.3 deploy/todoRestApiDeploy.yml:** Handles the deployment of the API Gateway to a specific stage.
@@ -89,7 +96,7 @@ Before proceeding, ensure you have a registered domain name. If you don't alread
   **1. Navigate to Route 53:** Use the Route 53 console to check the availability of your desired domain name.  
 
   **2. Register the Domain:** Once you find an available domain name, complete the registration process within Route 53.
-  
+
   **3. Confirm Hosted Zone Creation:** After successful domain registration, verify that a hosted zone has been created with the same name as your registered domain. This hosted zone is required to manage the DNS records for your domain.
 
 
@@ -200,6 +207,7 @@ Properties:
       HostedZoneId: hostedZoneId #specify the hosted zone id of the route53 domain
 ```
 **Key Details:**
+
   **1. DomainName:** This should be the custom domain you registered in Route 53.
 
   **2. ValidationMethod:** We are using DNS validation, which requires the certificate to be validated using DNS records.
@@ -223,6 +231,7 @@ Properties:
       - REGIONAL
 ```
 **Key Details:**
+
   **1. DomainName:** This is the custom domain you registered in Route 53, which will be used as the URL for accessing your API Gateway.
 
   **2. RegionalCertificateArn:** This links the previously created ACM certificate (todoRestAPICertificate) to the custom domain, ensuring that the domain is SSL/TLS secured.
@@ -245,6 +254,7 @@ Properties:
     HostedZoneId: !GetAtt todoRestApiCustomDomain.RegionalHostedZoneId #fetch the hosted zone id of the route53 domain
 ```
 **Key Details:**
+
   **1. HostedZoneId:** This specifies the ID of the hosted zone in Route 53 where your domain is managed. It ensures that the custom domain points to the correct hosted zone.
 
   **2. Name:** The domain name (custom domain) must match the one registered in Route 53.
