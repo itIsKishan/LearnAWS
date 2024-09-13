@@ -1,7 +1,7 @@
-Type: 'AWS::CertificateManager::Certificate' # Define a certificate for the API Gateway & Route53
+Type: 'AWS::CertificateManager::Certificate'
 Properties: 
-  DomainName: hosted-custom-domain-for-api-gateway.com # Specify the domain name for the custom domain, this should be same as your ROute53 domain name
-  ValidationMethod: DNS # Specify the validation method for the certificate
+  DomainName: hosted-custom-domain-for-api-gateway.com
+  ValidationMethod: DNS
   DomainValidationOptions: 
     - DomainName: hosted-custom-domain-for-api-gateway.com
-      HostedZoneId: hostedZoneId #specify the hosted zone id of the route53 domain
+      HostedZoneId: hostedZoneId #paste the hosted zone id here
