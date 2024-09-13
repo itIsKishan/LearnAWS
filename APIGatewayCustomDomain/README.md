@@ -86,9 +86,11 @@ This folder contains the actual code for the Lambda function responsible for han
 ## PreRequities
 Before proceeding, ensure you have a registered domain name. If you don't already have one, follow these steps:
 
-**1. Navigate to Route 53:** Use the Route 53 console to check the availability of your desired domain name.
-**2. Register the Domain:** Once you find an available domain name, complete the registration process within Route 53.
-**3. Confirm Hosted Zone Creation:** After successful domain registration, verify that a hosted zone has been created with the same name as your registered domain. This hosted zone is required to manage the DNS records for your domain.
+  **1. Navigate to Route 53:** Use the Route 53 console to check the availability of your desired domain name.  
+
+  **2. Register the Domain:** Once you find an available domain name, complete the registration process within Route 53.
+  
+  **3. Confirm Hosted Zone Creation:** After successful domain registration, verify that a hosted zone has been created with the same name as your registered domain. This hosted zone is required to manage the DNS records for your domain.
 
 
 ## Explanation Of YAML
@@ -198,9 +200,11 @@ Properties:
       HostedZoneId: hostedZoneId #specify the hosted zone id of the route53 domain
 ```
 **Key Details:**
-**1. DomainName:** This should be the custom domain you registered in Route 53.
-**2. ValidationMethod:** We are using DNS validation, which requires the certificate to be validated using DNS records.
-**3. HostedZoneId:** The hosted zone ID from Route 53 for your domain, which allows DNS validation to automatically create the required DNS records.
+  **1. DomainName:** This should be the custom domain you registered in Route 53.
+
+  **2. ValidationMethod:** We are using DNS validation, which requires the certificate to be validated using DNS records.
+
+  **3. HostedZoneId:** The hosted zone ID from Route 53 for your domain, which allows DNS validation to automatically create the required DNS records.
 
 By following this setup, the ACM certificate will be validated and linked with the custom domain, ensuring secure access to your API Gateway.
 
@@ -219,13 +223,13 @@ Properties:
       - REGIONAL
 ```
 **Key Details:**
-**1. DomainName:** This is the custom domain you registered in Route 53, which will be used as the URL for accessing your API Gateway.
+  **1. DomainName:** This is the custom domain you registered in Route 53, which will be used as the URL for accessing your API Gateway.
 
-**2. RegionalCertificateArn:** This links the previously created ACM certificate (todoRestAPICertificate) to the custom domain, ensuring that the domain is SSL/TLS secured.
+  **2. RegionalCertificateArn:** This links the previously created ACM certificate (todoRestAPICertificate) to the custom domain, ensuring that the domain is SSL/TLS secured.
 
-**3. EndpointConfiguration:** The Types field is set to REGIONAL, meaning the custom domain will use a regional API Gateway, which is hosted in a specific AWS region. You can also use EDGE for a global distribution setup.
+  **3. EndpointConfiguration:** The Types field is set to REGIONAL, meaning the custom domain will use a regional API Gateway, which is hosted in a specific AWS region. You can also use EDGE for a global distribution setup.
 
-This setup allows your API Gateway to have a secure, custom domain name, making it easier to use and more professional for public-facing applications.
+  This setup allows your API Gateway to have a secure, custom domain name, making it easier to use and more professional for public-facing applications.
 
 **Step9: Create A Record Set In Hosted Zone of the custom domain**
 After configuring the custom domain for the API Gateway, the next step is to add a record set in the Route 53 hosted zone. This will map the custom domain to the API Gateway. The configuration can be found in `resources/apiGateway/customDomain/customDomainRecordSet.yml`
@@ -241,13 +245,13 @@ Properties:
     HostedZoneId: !GetAtt todoRestApiCustomDomain.RegionalHostedZoneId #fetch the hosted zone id of the route53 domain
 ```
 **Key Details:**
-**1. HostedZoneId:** This specifies the ID of the hosted zone in Route 53 where your domain is managed. It ensures that the custom domain points to the correct hosted zone.
+  **1. HostedZoneId:** This specifies the ID of the hosted zone in Route 53 where your domain is managed. It ensures that the custom domain points to the correct hosted zone.
 
-**2. Name:** The domain name (custom domain) must match the one registered in Route 53.
+  **2. Name:** The domain name (custom domain) must match the one registered in Route 53.
 
-**3. Type (A):** An alias record (Type A) is used to map the custom domain to the API Gateway endpoint. The alias allows traffic to be routed to the API Gateway using the custom domain.
+  **3. Type (A):** An alias record (Type A) is used to map the custom domain to the API Gateway endpoint. The alias allows traffic to be routed to the API Gateway using the custom domain.
 
-**4. AliasTarget:** This is where the custom domain from the API Gateway is attached, utilizing GetAtt to fetch the domain name and hosted zone ID from the API Gateway.
+  **4. AliasTarget:** This is where the custom domain from the API Gateway is attached, utilizing GetAtt to fetch the domain name and hosted zone ID from the API Gateway.
 
 **Step10: API Mapping For Custom Domain**
 The final step is to map the API Gateway to the custom domain we created in the previous step. This ensures that when the custom domain is accessed, it routes to the appropriate API Gateway stage. The configuration is located in `resources/apiGateway/customDomain/customDomainAPIMapping.yml`
@@ -262,11 +266,12 @@ Properties:
   Stage: dev  # Set the stage name for the base path mapping to "dev"
 ```
 **Key Details:**
-**1. DomainName:** This links the custom domain created in the previous steps to the base path mapping, using the todoRestApiCustomDomain.
 
-**2. RestApiId:** This connects the custom domain to the REST API (todoRestApi), ensuring requests to the custom domain are routed to the correct API Gateway.
+  **1. DomainName:** This links the custom domain created in the previous steps to the base path mapping, using the todoRestApiCustomDomain.
 
-**3. Stage:** The Stage property indicates which stage (e.g., dev, prod) of the API Gateway will be accessible via the custom domain.
+  **2. RestApiId:** This connects the custom domain to the REST API (todoRestApi), ensuring requests to the custom domain are routed to the correct API Gateway.
+
+  **3. Stage:** The Stage property indicates which stage (e.g., dev, prod) of the API Gateway will be accessible via the custom domain.
 
 By setting up the record set and API mapping, your custom domain is fully configured to route traffic to your API Gateway, ensuring a seamless user experience with a professional, branded URL.
 
