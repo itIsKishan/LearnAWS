@@ -1,0 +1,8 @@
+Type: 'AWS::ApiGateway::DomainName' # Define a custom domain for the API Gateway
+Properties:
+  DomainName: hosted-custom-domain-for-api-gateway.com # Specify the domain name for the custom domain, this should be same as your ROute53 domain name
+  RegionalCertificateArn:  # link the acm certificate to the custom domain
+    Ref: todoRestAPICertificate
+  EndpointConfiguration: # Specify the endpoint configuration for the custom domain
+    Types:
+      - REGIONAL

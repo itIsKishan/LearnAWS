@@ -1,0 +1,9 @@
+Type: AWS::ApiGateway::Resource # Define a new resource in the API Gateway for the "todo" endpoint
+Properties:
+  ParentId: # Attach the resource under the root resource of the specified API Gateway
+    Fn::GetAtt:
+      - todoRestApi
+      - RootResourceId
+  PathPart: todo # Specify the path segment for the resource, i.e., "/todo"
+  RestApiId: # Link this resource to the specific API Gateway
+    Ref: todoRestApi

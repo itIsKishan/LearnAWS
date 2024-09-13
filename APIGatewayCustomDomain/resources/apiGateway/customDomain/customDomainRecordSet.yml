@@ -1,0 +1,8 @@
+Type: AWS::Route53::RecordSet # Define a Route 53 record set for the custom domain
+Properties:
+  HostedZoneId: hostedZoneId #specify the hosted zone id of the route53 domain
+  Name: hosted-custom-domain-for-api-gateway.com # Specify the domain name for the record set: this should be same is route53 domain name
+  Type: A # Specify the record type for the record set, for attaching custom domain to hosted zone we use Type Alias(A)
+  AliasTarget: # Specify the alias target for the record set
+    DNSName: !GetAtt todoRestApiCustomDomain.RegionalDomainName #fetch the api gateway custom domain name
+    HostedZoneId: !GetAtt todoRestApiCustomDomain.RegionalHostedZoneId #fetch the hosted zone id of the route53 domain

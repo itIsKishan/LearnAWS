@@ -1,0 +1,15 @@
+Type: AWS::ApiGateway::Method # Define a method in the API Gateway for the "createTodo" endpoint
+Properties: # Specify the properties for the method
+  AuthorizationType: NONE # Set the authorization type for the method to "NONE"
+  HttpMethod: POST # Set the HTTP method for the method to "POST"
+  ResourceId: # Attach the method to the "todo" resource
+    Ref: todoRestApiRootResource
+  RestApiId: # Link this method to the specific API Gateway
+    Ref: todoRestApi
+  Integration: # Define the integration for the method: this will set the method to invoke the "createTodo" Lambda function
+    IntegrationHttpMethod: POST # Set the HTTP method for the integration to "POST"
+    Type: AWS_PROXY # Set the type of the integration to "AWS_PROXY"
+    Uri: # Set the URI for the integration to the ARN of the "createTodo" Lambda function
+      Fn::Sub: arn:aws:apigateway:${AWS::Region}:lambda:path/2015-03-31/functions/${CreateTodoLambdaFunction.Arn}/invocations
+  MethodResponses:
+    - StatusCode: 200

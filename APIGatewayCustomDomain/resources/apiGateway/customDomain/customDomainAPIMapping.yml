@@ -1,0 +1,7 @@
+Type: 'AWS::ApiGateway::BasePathMapping' # Define a base path mapping for the API Gateway
+Properties:
+  DomainName: # Link the base path mapping to the custom domain
+    Ref: todoRestApiCustomDomain
+  RestApiId: # Link the REST API Created to this custom domain
+    Ref: todoRestApi
+  Stage: dev  # Set the stage name for the base path mapping to "dev"

@@ -1,0 +1,7 @@
+Type: AWS::ApiGateway::Deployment # Define a deployment for the API Gateway
+DependsOn:  # Specify the resources that the deployment depends on
+  - createTodoRestApiMethod
+Properties:
+  RestApiId: # Link the deployment to the specific API Gateway
+    Ref: todoRestApi
+  StageName: ${opt:stage, 'dev'} # Set the stage name for the deployment to "dev"

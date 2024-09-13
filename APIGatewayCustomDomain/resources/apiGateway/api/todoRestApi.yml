@@ -1,0 +1,4 @@
+Type: AWS::ApiGateway::RestApi # Define a REST API for the todo application
+Properties:
+  Name: 'todoAPI' # Specify the name of the REST API
+  Description: 'CRUD API for todo'

@@ -1,0 +1,7 @@
+Type: AWS::Lambda::Permission #allow api gateway to invoke the lambda function
+DependsOn: #Depends on the api gateway creation so it attach permission to that api
+  - todoRestApi
+Properties: #Properties of the permission
+  Action: lambda:InvokeFunction #Action: lambda:InvokeFunction which allows the api gateway to invoke the lambda function
+  FunctionName: !Ref CreateTodoLambdaFunction #Referring lambda function which is to be invoked
+  Principal: apigateway.amazonaws.com #Principal who can invoke the function
