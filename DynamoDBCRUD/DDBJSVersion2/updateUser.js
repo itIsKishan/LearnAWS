@@ -1,6 +1,5 @@
 const aws = require('aws-sdk');
 aws.config.update({ region: 'us-east-1' });
-const { uuid:v4 } = require('uuid');
 
 const dynamodb = new aws.DynamoDB.DocumentClient();
 
