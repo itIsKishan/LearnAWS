@@ -78,13 +78,11 @@ To maintain clarity and avoid overloading the `serverless.yml` file, I’ve orga
   **2.1 dynamoDB/:** This subfolder houses YAML templates defining DynamoDB tables.
 
     **2.1.1 userTable.yml:** Defines the schema and configuration for the `User` table.
-
     **2.1.2 todoTable.yml:** Defines the schema and configuration for the `Todo` table.
 
   **2.2 lambda/:** Contains YAML files defining individual Lambda function resources.
 
     **2.2.1 userLambda/:** Contains the configuration for `createUserLambda` that handles user-related operations.
-
     **2.2.2 todoLambda/:** Contains the configuration for `createTodoLambda` that handles todo-related operations.
 
   **2.3 role/:** This subfolder contains the configuration for the IAM role that grants necessary permissions to your Lambda functions.
@@ -94,9 +92,8 @@ To maintain clarity and avoid overloading the `serverless.yml` file, I’ve orga
   **3.1 userLambda/:** Contains code for handling user-related operations.
 
     **3.1.1 createUserLambda/:** The folder for the user creation function.
-
   **3.2 todoLambda/:** Contains code for handling todo-related operations.
-
+  
     **3.2.1 createTodoLambda/:** The folder for the todo creation function.
 
 ## Why Lambda Layer?
