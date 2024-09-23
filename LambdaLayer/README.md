@@ -253,6 +253,12 @@ In Step 4, we referenced the artifact layers/nodejs.zip, but you might be wonder
 
   After zipping the folder, your nodejs.zip file will be ready for use when creating your Lambda Layer. This structured approach ensures that your layers are well-organized and compliant with AWS Lambda requirements, making it easier to manage your dependencies efficiently.
 
+Once done we need to referr this created layer in the lambda as below:
+```
+layers: #referring the layer to the lambda function
+  - !Ref UserLambdaLayer
+```
+
 ## Deploy
 To deploy your entire setup, simply run the command:
 `sls deploy` 
