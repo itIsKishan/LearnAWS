@@ -1,0 +1,10 @@
+Type: AWS::DynamoDB::Table
+Properties:
+  TableName: todoTable
+  BillingMode: PAY_PER_REQUEST
+  AttributeDefinitions:
+    - AttributeName: todoId
+      AttributeType: S
+  KeySchema:
+    - AttributeName: todoId
+      KeyType: HASH

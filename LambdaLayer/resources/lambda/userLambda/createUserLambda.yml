@@ -1,0 +1,13 @@
+name: createUser
+handler: src/userLambda/createUserLambda/index.handler
+description: Create user task using SDK Version 3 method
+timeout: 30
+memorySize: 512
+layers: #referring the layer to the lambda function
+  - !Ref UserLambdaLayer
+role: userLambdaRole
+events: 
+  - http:
+      path: /createUser
+      method: POST
+      cors: true

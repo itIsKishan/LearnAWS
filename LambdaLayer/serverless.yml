@@ -1,0 +1,38 @@
+service: LambdaLayer
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ${opt:region, "us-east-1"}
+  stage: dev
+
+package: #package defines function-specific code and libraries
+  individually: true
+  patterns: #bundle package without this folders in the lambda
+    - '!screenshots/**'
+    - '!layers/**'
+
+layers: #Step4 Layer: Layer to share the common code, dependencies between the lambda functions
+  user:
+    package: #referring the zip file as artifact
+      artifact: layers/nodejs.zip
+    name: ${self:provider.stage}-user #name of the layer
+    compatibleRuntimes: #compatible runtimes
+      - nodejs18.x
+    compatibleArchitectures: #compatible architectures
+      - x86_64
+      - arm64
+
+functions:
+  #Step1 Lambda: lambda to create user, todo using SDK Version 3
+  createUser: ${file(./resources/lambda/userLambda/createUserLambda.yml)}
+  createTodo: ${file(./resources/lambda/todoLambda/createTodoLambda.yml)}
+
+resources:
+  Resources:
+    #Step2 DynamoDB: DynamoDB table to store user & todo details
+    userTable: ${file(./resources/dynamoDB/userTable.yml)}
+    todoTable: ${file(./resources/dynamoDB/todoTable.yml)}
+
+    #Step3 Role: Role allowing permission for the lambda function
+    userLambdaRole: ${file(./resources/role/role.yml)}
