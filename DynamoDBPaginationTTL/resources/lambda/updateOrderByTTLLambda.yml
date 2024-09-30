@@ -1,0 +1,13 @@
+name: updateOrderByTTLLambda
+description: updates the TTL of an order
+handler: src/TTL/updateOrderByTTLLambda.handler
+timeout: 30
+memorySize: 128
+role: userOrderRole
+environment:
+  ORDER_TABLE_NAME: orderTable
+events:
+  - http:
+      path: /updateOrderTTL
+      method: post
+      cors: true

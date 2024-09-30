@@ -1,0 +1,13 @@
+name: retrievePaginatedOrdersWithTTLLambda
+description: paginates orders
+handler: src/TTL/retrievePaginatedOrdersWithTTLLambda.handler
+timeout: 30
+memorySize: 128
+role: userOrderRole
+environment:
+  ORDER_TABLE_NAME: orderTable
+events:
+  - http:
+      path: /retrievePaginatedOrderWithTTL
+      method: get
+      cors: true

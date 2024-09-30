@@ -1,0 +1,21 @@
+service: DynamoDBPaginationTTL
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ${opt:region, "us-east-1"}
+  stage: dev
+  apiName: DDBPaginationTTLApi #api gateway name
+
+functions:
+  #step1: Create lambda functions to perform Create, Update & paginated query operations on orderTable
+  createOrderWthTTLLambda: ${file(resources/lambda/createOrderWithTTLLambda.yml)}
+  updateOrderByTTLLambda: ${file(resources/lambda/updateOrderByTTLLambda.yml)}
+  retrievePaginatedOrdersWithTTLLambda: ${file(resources/lambda/retrievePaginatedOrdersWithTTLLambda.yml)}
+
+resources:
+  Resources:
+    #Step2: Create orderTable to store orderInfo
+    orderTable: ${file(resources/dynamoDB/orderTable.yml)}
+    #Step3: allow lambda's to have necessary permission to access the orderTable
+    userOrderRole: ${file(resources/role/role.yml)}

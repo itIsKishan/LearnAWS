@@ -1,0 +1,22 @@
+Type: AWS::DynamoDB::Table
+Properties:
+  TableName: orderTable
+  BillingMode: PAY_PER_REQUEST
+  AttributeDefinitions:
+    - AttributeName: orderId
+      AttributeType: S
+    - AttributeName: userId
+      AttributeType: S
+  KeySchema: #Primary Key: orderId
+    - AttributeName: orderId
+      KeyType: HASH
+  GlobalSecondaryIndexes: #GSI: creating userIdIndex to fetch order details of specific user
+    - IndexName: userIdIndex
+      KeySchema:
+        - AttributeName: userId
+          KeyType: HASH
+      Projection:
+        ProjectionType: ALL
+  TimeToLiveSpecification: #TTL: to set the TTL for the item in the table
+    AttributeName: expiresAt #attribute: used to set the TTL
+    Enabled: true

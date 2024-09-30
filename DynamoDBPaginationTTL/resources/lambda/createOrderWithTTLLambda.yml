@@ -1,0 +1,13 @@
+name: createOrderWithTTLLambda
+description: creates an order
+handler: src/TTL/createOrderWithTTLLambda.handler
+timeout: 30
+memorySize: 128
+role: userOrderRole
+environment:
+  ORDER_TABLE_NAME: orderTable
+events:
+  - http:  
+      path: /createOrder
+      method: post
+      cors: true
