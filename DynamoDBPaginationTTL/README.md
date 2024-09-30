@@ -261,13 +261,15 @@ The role configuration is specified in the `resources/role/role.yml` file. This 
 
 ## Explanation Of Code
 The folder structure for the code is organized as follows:
-src
-  TTL
-    createOrderWithTTLLambda.js
-    retrievePaginatedOrdersWithTTLLambda.js
-    updateOrderByTTLLambda.js
-  utils
-    getTime.js
+```
+├── src/
+│   ├── TTL/
+│   │   ├── createOrderWithTTLLambda.js
+│   │   ├── retrievePaginatedOrdersWithTTLLambda.js
+│   │   └── updateOrderByTTLLambda.js
+│   └── Utils/
+│       └── getTime.js
+```
 
 ### `utils/getTime.js`
 This utility file helps calculate the current time and the expiration time for setting TTL (Time to Live) in the DynamoDB table.
