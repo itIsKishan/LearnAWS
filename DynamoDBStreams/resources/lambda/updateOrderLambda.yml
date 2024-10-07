@@ -1,0 +1,13 @@
+name: updateOrderByLambda #name of the lambda function
+description: updates the status of an order
+handler: src/orderLambda/updateOrderLambda.handler #entry point to the lambda function
+timeout: 30
+memorySize: 128
+role: userOrderRole #role that has permission to access the orderTable
+environment:
+  ORDER_TABLE_NAME: orderTable
+events:
+  - http: #event type is http to update the order
+      path: /updateOrder
+      method: post
+      cors: true

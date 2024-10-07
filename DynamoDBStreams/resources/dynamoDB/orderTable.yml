@@ -1,0 +1,12 @@
+Type: AWS::DynamoDB::Table
+Properties:
+  TableName: orderTable
+  BillingMode: PAY_PER_REQUEST
+  AttributeDefinitions:
+    - AttributeName: orderId
+      AttributeType: S
+  KeySchema: #Primary Key: orderId
+    - AttributeName: orderId
+      KeyType: HASH
+  StreamSpecification: #Enable DynamoDB Streams:
+    StreamViewType: NEW_AND_OLD_IMAGES #StreamViewType can be set to NEW_IMAGE, OLD_IMAGE, NEW_AND_OLD_IMAGES, or KEYS_ONLY

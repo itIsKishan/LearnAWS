@@ -1,0 +1,23 @@
+service: DynamoDBStreams
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ${opt:region, "us-east-1"}
+  stage: dev
+  apiName: DDBStreamsApi #api gateway name
+
+functions:
+  #STEP1: Create the lambda which do create, update order operation
+  createOrderLambda: ${file(resources/lambda/createOrderLambda.yml)}
+  updateOrderLambda: ${file(resources/lambda/updateOrderLambda.yml)}
+  #STEP2: Create the lambda which handle the stream records
+  orderStreamLambda: ${file(resources/lambda/orderStreamLambda.yml)}
+
+resources:
+  Resources:
+    #STEP3: Create the dynamodb table to store order data
+    orderTable: ${file(resources/dynamoDB/orderTable.yml)}
+    #STEP4: Create the role which has permission to access the orderTable
+    userOrderRole: ${file(resources/role/role.yml)}
+

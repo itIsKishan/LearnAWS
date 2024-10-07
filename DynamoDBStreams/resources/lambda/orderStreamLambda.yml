@@ -1,0 +1,23 @@
+name: orderStreamLambda #name of the lambda function
+description: handle the stream records
+handler: src/streamLambda/orderStreamLambda.handler #entry point to the lambda function
+timeout: 30
+memorySize: 128
+role: userOrderRole #role that has permission to access the orderTable
+environment:
+  ORDER_TABLE_NAME: orderTable
+events:
+  - stream: #stream: defining the stream filter for the lambda so that only specified data in stream is sent to this lamdba
+      type: dynamodb
+      arn: !GetAtt orderTable.StreamArn #arn of the dynamodb table stream
+      batchSize: 100 #maximum number of records that can be sent to the lambda
+      startingPosition: LATEST #start reading the stream from the latest record
+      functionResponseType: ReportBatchItemFailures #report the failed records in the batch
+      filterPatterns: #filter the records based on the filter patterns
+        - eventName:  #filter the records based on the event type MODIFY: whenever there is update operation in DDB
+            - "MODIFY"
+        - dynamodb:
+            NewImage:
+              orderStatus: #filter the records based on the orderStatus in the newImage
+                S:
+                  - "SHIPPED"
