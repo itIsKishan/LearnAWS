@@ -1,0 +1,13 @@
+name: createUserLambda #name: name of the lambda function
+description: Create user in the userCache table
+handler: src/createUser.handler #handler: entry point of the lambda function
+timeout: 30
+memorySize: 128
+role: userRole #role: role which has permission to access the userTable & userQueue
+environment: 
+  USER_TABLE: !Ref userTable
+events: 
+  - sqs: #SQS: setting sqs event so that lambda is triggered from SQS
+      arn: !GetAtt userQueue.Arn
+      enabled: true
+      batchSize: 1

@@ -1,0 +1,11 @@
+Type: AWS::DynamoDB::Table #UserCache: This table is used to store the user data
+Properties:
+  TableName: UserCache #TableName: name of the table 
+  BillingMode: PAY_PER_REQUEST
+  AttributeDefinitions: #AttributeDefinitions: define the attribute name and type
+    - AttributeName: userId
+      AttributeType: S
+  KeySchema: #KeySchema: define the primary key of the table which is userId
+    - AttributeName: userId
+      KeyType: HASH
+  

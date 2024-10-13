@@ -1,0 +1,10 @@
+Type: AWS::SQS::Queue #userQueue: This is the queue which is used to store the user data
+Properties:
+  QueueName: user-queue #QueueName: name of the queue
+  VisibilityTimeout: 30
+  MessageRetentionPeriod: 1209600 #MessageRetentionPeriod: time for which the message is retained in the queue(14 days in this case)
+  MaximumMessageSize: 262144 #MaximumMessageSize: maximum size of the message(256kib in this case)
+  RedrivePolicy: #RedrivePolicy: setting the dead letter queue for the userQueue
+    deadLetterTargetArn: !GetAtt userDeadLetterQueue.Arn
+    maxReceiveCount: 1
+  

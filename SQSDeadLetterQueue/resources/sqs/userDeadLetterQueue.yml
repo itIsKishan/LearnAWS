@@ -1,0 +1,7 @@
+Type: AWS::SQS::Queue #SQSDLQ: This is the dead letter queue for the userQueue
+Properties:
+  QueueName: user-dead-letter-queue #QueueName: name of the queue
+  VisibilityTimeout: 30 #VisibilityTimeout: time set to make the message invisible to other consumers after a consumer has received it.
+  MessageRetentionPeriod: 1209600 #MessageRetentionPeriod: time for which the message is retained in the queue(14 days in this case)
+  MaximumMessageSize: 262144 #MaximumMessageSize: maximum size of the message(256kib in this case)
+    

@@ -1,0 +1,39 @@
+Type: AWS::IAM::Role
+Properties:
+  RoleName: SQSDLQRole
+  AssumeRolePolicyDocument:
+    Version: '2012-10-17'
+    Statement:
+      - Effect: Allow
+        Principal:
+          Service: lambda.amazonaws.com
+        Action: sts:AssumeRole
+  Policies:
+    - PolicyName: UserCachePolicy #UserCachePolicy: Allow lambda to perform Create operations on UserCache table
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: 
+              - dynamodb:PutItem
+            Resource: 
+              - !Sub "arn:aws:dynamodb:${self:provider.region}:${AWS::AccountId}:table/UserCache"
+              - !Sub "arn:aws:dynamodb:${self:provider.region}:${AWS::AccountId}:table/UserCache/*"
+          - Effect: Allow
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: "*"
+    - PolicyName: sqsPolicy #SQSPolicy: we need to set this permission to the lambda which is going to trigerr from SQS queue
+      PolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: "Allow"
+            Action:
+              - "sqs:SendMessage"
+              - "sqs:DeleteMessage"
+              - "sqs:ReceiveMessage"
+              - "sqs:GetQueueAttributes"
+            Resource: 
+              - !Sub "arn:aws:sqs:${self:provider.region}:${AWS::AccountId}:user-queue"

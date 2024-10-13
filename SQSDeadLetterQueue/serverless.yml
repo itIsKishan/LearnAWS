@@ -1,0 +1,22 @@
+service: SQSDeadLetterQueue
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ${opt:region, "us-east-1"}
+  stage: dev
+  apiName: SQSDLQApi #api gateway name
+
+functions:
+  #Step1: Create the lambda which do create user operation 
+  createUserLambda: ${file(resources/lambda/createUserLambda.yml)}
+
+resources: 
+  Resources:
+    #Step2: Create the dynamodb table to store user data & role which has permission to access the table & recieve message from queue
+    userTable: ${file(resources/dynamoDB/userTable.yml)}
+    userRole: ${file(resources/role/role.yml)}
+
+    #Step3: Create the userQueue & userDeadLetterQueue
+    userQueue: ${file(resources/sqs/userQueue.yml)}
+    userDeadLetterQueue: ${file(resources/sqs/userDeadLetterQueue.yml)}
