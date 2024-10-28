@@ -1,0 +1,6 @@
+Type: AWS::S3::Bucket #Bucket: create S3 Bucket
+Properties:
+  BucketName: sample-s3-test-dev #name: bucket name you want to define
+  AccessControl: Private #AccessControl: Access control for the bucket
+  VersioningConfiguration: #VersioningConfiguration: Versioning configuration for the bucket
+    Status: Enabled

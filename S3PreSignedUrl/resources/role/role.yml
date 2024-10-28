@@ -1,0 +1,27 @@
+Type: AWS::IAM::Role #Role: create IAM Role
+Properties:
+  RoleName: userS3Role #RoleName: Role name you want to define
+  AssumeRolePolicyDocument:
+    Version: '2012-10-17'
+    Statement:
+      - Effect: Allow
+        Principal:
+          Service: lambda.amazonaws.com
+        Action: sts:AssumeRole
+  Policies:
+    - PolicyName: S3Policy #PolicyName: Policy name you want to define
+      PolicyDocument:
+        Version: '2012-10-17'
+        Statement:
+          - Effect: Allow
+            Action: #Action: Action you want to allow
+              - s3:PutObject
+              - s3:GetObject
+            Resource: 
+              - !Sub "arn:aws:s3:::sample-s3-test-dev/*"
+          - Effect: Allow
+            Action:
+              - logs:CreateLogGroup
+              - logs:CreateLogStream
+              - logs:PutLogEvents
+            Resource: "*"

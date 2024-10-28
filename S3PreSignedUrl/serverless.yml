@@ -1,0 +1,19 @@
+service: S3PreSignedUrl
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ${opt:region, "us-east-1"}
+  stage: dev
+
+functions:
+  #Step1: Create lambda for getting pre-signed url for get & put operation on bucket
+  putObjectLambda: ${file(resources/lambda/putObjectLambda.yml)}
+  getObjectLambda: ${file(resources/lambda/getObjectLambda.yml)}
+
+resources:
+  Resources:
+    #Step2: Create IAM Role for lambda
+    userS3Role: ${file(resources/role/role.yml)}
+    #Step3: Create S3 Bucket
+    sampleS3Bucket: ${file(resources/s3/sampleS3TestBucket.yml)}

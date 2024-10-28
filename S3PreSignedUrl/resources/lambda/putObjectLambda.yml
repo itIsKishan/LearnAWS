@@ -1,0 +1,11 @@
+name: putObjectLambda #name: Lambda function name you want to define
+description: 'A Lambda function that stores an object in an S3 bucket'
+handler: src/putObjectLambda/index.handler #handler: Lambda function handler
+role: userS3Role
+timeout: 30
+memorySize: 128
+events: 
+  - http: #events: api gateway event
+      path: /putObject
+      method: post
+      cors: true
