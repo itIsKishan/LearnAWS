@@ -1,0 +1,16 @@
+name: getUserLambda
+description: "Get User Lambda"
+handler: src/userLambda/getUserLambda.handler
+runtime: nodejs18.x
+memorySize: 128
+timeout: 10
+role: userAuthLambdaRole
+events: 
+  - http:  # API Gateway: create endpoint with path /getUser to call from client
+      path: /getUser
+      method: get
+      cors: true
+      authorizer:  # Authorizer: attach the authorizer lambda to validate the request for the endpoint
+        name: AuthLambdaLambdaFunction
+        arn: !GetAtt AuthLambdaLambdaFunction.Arn
+        

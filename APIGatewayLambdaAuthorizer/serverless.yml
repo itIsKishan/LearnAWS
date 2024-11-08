@@ -1,0 +1,19 @@
+service: APIGatewayLambdaAuthorizer
+frameworkVersion: '3'
+
+provider:
+  name: aws
+  runtime: nodejs18.x
+  region: ${opt:region, "us-east-1"}
+  stage: dev
+  apiName: authApi #api gateway name
+
+functions:
+  # Step1: Create a lambda function for authorizer
+  authLambda: ${file(resources/lambda/authLambda.yml)}
+  getUserLambda: ${file(resources/lambda/getUserLambda.yml)}
+
+resources:
+  Resources:
+    # Step2: Create a role for the lambda function
+    userAuthLambdaRole: ${file(resources/role/role.yml)}

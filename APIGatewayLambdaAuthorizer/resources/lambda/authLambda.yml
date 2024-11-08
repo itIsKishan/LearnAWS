@@ -1,0 +1,7 @@
+name: authLambda
+description: "validate request"
+handler: src/authLambda/authLambda.handler
+runtime: nodejs18.x
+memorySize: 128
+timeout: 10
+role: userAuthLambdaRole
